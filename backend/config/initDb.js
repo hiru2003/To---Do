@@ -12,7 +12,7 @@ async function initDb() {
             password: process.env.DB_PASSWORD !== undefined ? process.env.DB_PASSWORD : "1234"
         });
         
-        const dbName = process.env.DB_NAME || "todo_db";
+        const dbName = process.env.DB_NAME || "todo_app";
         await tempConnection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\``);
         await tempConnection.end();
         console.log(`Database '${dbName}' verified/created.`);
