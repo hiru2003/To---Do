@@ -3,14 +3,16 @@ const cors = require("cors");
 require("dotenv").config();
 const initDb = require("./config/initDb");
 const authRoutes = require("./routes/authRoutes");
+const todoRoutes = require("./routes/todoRoutes");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Mount authentication routes
+// Mount authentication and todo routes
 app.use("/api/auth", authRoutes);
+app.use("/api/todos", todoRoutes);
 
 // Initialize DB and start server
 const PORT = process.env.PORT || 5000;

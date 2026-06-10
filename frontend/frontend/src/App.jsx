@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import Register from './components/Register'
 import Login from './components/Login'
+import Home from './components/Home'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -36,13 +37,17 @@ function App() {
 
   return (
     <div id="center">
-      <h1>To-Do App</h1>
-      <p style={{ marginBottom: '20px', color: 'var(--text)' }}>
-        Manage your tasks with robust, secure authentication
-      </p>
+      {!currentUser && (
+        <>
+          <h1>To-Do App</h1>
+          <p style={{ marginBottom: '20px', color: 'var(--text)' }}>
+            Manage your tasks with robust, secure authentication
+          </p>
+        </>
+      )}
       
       {currentUser ? (
-        <Register 
+        <Home 
           currentUser={currentUser} 
           onLogout={handleLogout} 
         />
