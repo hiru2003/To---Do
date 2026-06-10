@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../Register.css';
 
-function Register({ onRegisterSuccess, currentUser, onLogout }) {
+function Register({ onRegisterSuccess, currentUser, onLogout, onToggleView }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -242,6 +242,25 @@ function Register({ onRegisterSuccess, currentUser, onLogout }) {
             {loading ? 'Creating Account...' : 'Register Now'}
           </button>
         </form>
+
+        <p className="register-subtitle" style={{ textAlign: 'center', marginTop: '24px', marginBottom: '0' }}>
+          Already have an account?{' '}
+          <button 
+            type="button" 
+            onClick={onToggleView} 
+            style={{ 
+              background: 'none', 
+              border: 'none', 
+              color: 'var(--accent)', 
+              fontWeight: '600', 
+              cursor: 'pointer',
+              padding: '0 4px',
+              textDecoration: 'underline'
+            }}
+          >
+            Login here
+          </button>
+        </p>
       </div>
     </div>
   );

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Register from './components/Register'
+import Login from './components/Login'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
+  const [authView, setAuthView] = useState('login') // 'login' or 'register'
 
   // Load user from localStorage on mount if token exists
   useEffect(() => {
@@ -19,7 +21,7 @@ function App() {
     }
   }, []);
 
-  const handleRegisterSuccess = (token, user) => {
+  const handleAuthSuccess = (token, user) => {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
     setCurrentUser(user);
@@ -29,6 +31,7 @@ function App() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setCurrentUser(null);
+    setAuthView('login');
   };
 
   return (
@@ -38,11 +41,22 @@ function App() {
         Manage your tasks with robust, secure authentication
       </p>
       
-      <Register 
-        onRegisterSuccess={handleRegisterSuccess} 
-        currentUser={currentUser} 
-        onLogout={handleLogout} 
-      />
+      {currentUser ? (
+        <Register 
+          currentUser={currentUser} 
+          onLogout={handleLogout} 
+        />
+      ) : authView === 'login' ? (
+        <Login 
+          onLoginSuccess={handleAuthSuccess} 
+          onToggleView={() => setAuthView('register')} 
+        />
+      ) : (
+        <Register 
+          onRegisterSuccess={handleAuthSuccess} 
+          onToggleView={() => setAuthView('login')} 
+        />
+      )}
       
       <div id="spacer"></div>
     </div>
